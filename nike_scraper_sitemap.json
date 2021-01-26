@@ -1,0 +1,39 @@
+{
+  "_id": "adidas_one",
+  "startUrl": ["https://www.adidas.com/us/men"],
+  "selectors": [
+    {
+      "id": "product",
+      "type": "SelectorLink",
+      "parentSelectors": ["_root"],
+      "selector": "a[manual_cm_sp='BODY-_-SLOT-4_GLP_MEN_GLP_HOME_?-_-CTA-SHOES']",
+      "multiple": false,
+      "delay": 0
+    },
+    {
+      "id": "scroll",
+      "type": "SelectorElementScroll",
+      "parentSelectors": ["product"],
+      "selector": "a.gl-product-card__assets-link",
+      "multiple": true,
+      "delay": 2000
+    },
+    {
+      "id": "shoe",
+      "type": "SelectorLink",
+      "parentSelectors": ["scroll"],
+      "selector": "_parent_",
+      "multiple": false,
+      "delay": 0
+    },
+    {
+      "id": "title",
+      "type": "SelectorText",
+      "parentSelectors": ["shoe"],
+      "selector": ".sidebar___2C-EP .gl-heading span",
+      "multiple": false,
+      "regex": "",
+      "delay": 0
+    }
+  ]
+}
