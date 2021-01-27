@@ -6,6 +6,47 @@ require 'byebug'
 # Scraper module containing other modules required for the project
 # <<< Change the name of this outer module >>> #
 module Scraper
+    module GetDataFromIndeed
+        
+        # initial scrape
+        def scrapeIndeed
+
+            file = File.open("./data.txt")
+            jobs = []
+            10.times do |t|
+                if t == 0
+                    url = "https://www.indeed.com/jobs?q=software+engineer+ruby&fromage=14&sort=date"
+                else
+                    url = "https://www.indeed.com/jobs?q=software+engineer+ruby&sort=date&fromage=14&start=#{t}0"
+                end
+                unparsed = HTTParty.get(url)
+                parsed_page = Nokogiri::HTML(unparsed)
+                # jobs << parsed_page.css("h2[class='title']")[0].children.text
+
+                job_title = parsed_page.css("h2[class='title']").collect{|element| element.children.text}
+                job_location = parsed_page.css("div[class='sjcl']").collect{|element| element.children[5].inner_text }
+                # job_salary = parsed_page.css("span[class='salaryText']").collect{|element| element.children.text}
+                job_company = parsed_page.css("span[class='company']").collect{|element| element.children.text}
+                byebug
+            end
+            jobs.flatten!
+            File.write("data.txt", jobs, mode:"a")
+
+
+            # https://www.indeed.com/jobs?q=software+engineer+ruby
+            # https://www.indeed.com/jobs?q=software+engineer+ruby&start=#{t}0
+
+            # https://www.indeed.com/jobs?q=software+engineer+ruby&fromage=14&sort=date
+
+            # https://www.indeed.com/jobs?q=software+engineer+ruby&sort=date&fromage=14&start=10
+
+
+            # url = "https://www.indeed.com/jobs?q=software+engineer+ruby"
+            # parsed_page = Nokogiri::HTML(unparsed)
+            # jobs = parsed_page.css("a[class='jobtitle turnstileLink ']")
+
+        end
+    end
 
     # Inner module holds functions to extract data based on url given to HTTParty.get command
     module ScraperJobSearch
@@ -26,7 +67,7 @@ module Scraper
             # hold all the titles of the jobs listed from the search url above>>>
             jobs = parsed_page.css("h2>span[class='just_job_title']")
             # byebug similar to pry we think
-            byebug
+            # byebug
         end
 
     end
@@ -36,4 +77,7 @@ end
 # [TEST] Sees if module works
 include Scraper::ScraperJobSearch
 # ("h2>span[class='just_job_title']")
-scraper("Atlanta","GA")
+# scraper("Atlanta","GA")
+
+include Scraper::GetDataFromIndeed
+scrapeIndeed
