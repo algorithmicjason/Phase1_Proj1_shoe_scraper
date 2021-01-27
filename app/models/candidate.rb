@@ -1,4 +1,2 @@
-class Candidate
-
-
+class Candidate < ActiveRecord::Base
 end

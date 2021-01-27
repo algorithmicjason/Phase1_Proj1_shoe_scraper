@@ -1,4 +1,4 @@
-require "https://rubygems.org"
+source "https://rubygems.org"
 
 gem 'activerecord' # ORM (object relational mapper)
 gem 'sinatra-activerecord' # Rake tasks. db:migrate other interactions with the database
