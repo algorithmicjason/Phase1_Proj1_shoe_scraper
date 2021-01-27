@@ -20,16 +20,19 @@ module Scraper
                     url = "https://www.indeed.com/jobs?q=software+engineer+ruby&sort=date&fromage=14&start=#{t}0"
                 end
                 unparsed = HTTParty.get(url)
-                parsed_page = Nokogiri::HTML(unparsed)
-                # jobs << parsed_page.css("h2[class='title']")[0].children.text
+                parsed_page ||= Nokogiri::HTML(unparsed)
 
                 job_title = parsed_page.css("h2[class='title']").collect{|element| element.children.text}
                 job_location = parsed_page.css("div[class='sjcl']").collect{|element| element.children[5].inner_text }
-                # job_salary = parsed_page.css("span[class='salaryText']").collect{|element| element.children.text}
-                job_company = parsed_page.css("span[class='company']").collect{|element| element.children.text}
+                job_company = parsed_page.css("div[class='sjcl']").collect{|element| element.text}
+                job_company.map!{|arr| arr.gsub("\n","")}
+                15.times do |i|
+                    p [job_title[i] + job_company[i] + job_location[i]]
+                    jobs = [job_title[i], job_company[i], job_location[i], rand(50_000..180_000)]
+                end
                 byebug
             end
-            jobs.flatten!
+            # jobs.flatten!
             File.write("data.txt", jobs, mode:"a")
 
 
@@ -66,8 +69,6 @@ module Scraper
             # takes in css selectors to filter out unwanted element objects. "jobs" should then
             # hold all the titles of the jobs listed from the search url above>>>
             jobs = parsed_page.css("h2>span[class='just_job_title']")
-            # byebug similar to pry we think
-            # byebug
         end
 
     end
