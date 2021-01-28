@@ -1,3 +1,7 @@
-class Contract < ActiveRecord::Base
-    belongs_to :candidates
+
+class Contract < ApplicationRecord
+    belongs_to :recruiter
+	belongs_to :company
+	belongs_to :candidate
+
 end

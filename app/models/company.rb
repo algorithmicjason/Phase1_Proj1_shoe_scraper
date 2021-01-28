@@ -1,5 +1,6 @@
-class Company < ActiveRecord::Base
-    has_many :listings
+class Company < ApplicationRecord
+    has_many :candidate, through: :contract
+	has_many :contract, through: :recruiter
+	has_many :listing 
 
-    def make_listing()
 end
