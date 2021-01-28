@@ -1,2 +1,3 @@
-class Candidate < ActiveRecord::Base
+class Candidate < ApplicationRecord
+    
 end

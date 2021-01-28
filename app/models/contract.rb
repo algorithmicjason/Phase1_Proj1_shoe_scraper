@@ -1,2 +1,2 @@
-class Contract < ActiveRecord::Base
+class Contract < ApplicationRecord
 end

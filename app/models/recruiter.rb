@@ -1,2 +1,2 @@
-class Recruiter < ActiveRecord::Base
+class Recruiter < ApplicationRecord
 end
