@@ -5,7 +5,7 @@ class CreateListings < ActiveRecord::Migration[6.1]
       t.string :description
       t.integer :salary
       t.datetime :date_posted
-      
+      t.references :company
     end
   end
 end

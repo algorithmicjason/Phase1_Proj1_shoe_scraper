@@ -1,3 +1,9 @@
+Listing.destroy_all
+Candidate.destroy_all
+Company.destroy_all
+Recruiter.destroy_all
+Contract.destroy_all
+
 jason = Candidate.create(name: "Jason", skillset: 'engineer', desired_salary: '120000')
 jacob = Candidate.create(name: "Jacob", skillset: 'engineer', desired_salary: '220000')
 

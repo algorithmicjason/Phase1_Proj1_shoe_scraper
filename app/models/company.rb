@@ -1,6 +1,6 @@
 class Company < ApplicationRecord
-    has_many :candidate, through: :contract
-	has_many :contract, through: :recruiter
-	has_many :listing 
+    has_many :candidates, through: :contracts
+	has_many :contracts, through: :recruiters
+	has_many :listings
 
 end
